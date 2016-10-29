@@ -218,7 +218,13 @@ public:
 	inline void XYZ2ijk(float x,float y,float z,int &i,int &j,int &k){
 		i=getXIdx(x);
 		j=getYIdx(y);
-		k=getZIdx(k);
+		k=getZIdx(z);
+	}
+	//return the cx,cy,cz of the voxel where x,y,z fall in
+	inline void XYZ2center(float x,float y,float z,float &cx,float &cy,float &cz){
+		int i,j,k;
+		XYZ2ijk(x,y,z,i,j,k);
+		ijk2XYZ(i,j,k,cx,cy,cz);
 	}
 	inline Idx getIdx(int &i,int &j,int &k){
 		Idx idx={i,j,k};
