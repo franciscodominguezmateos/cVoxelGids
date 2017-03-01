@@ -2,7 +2,7 @@
  * grid_octree.h
  *
  *  Created on: Jul 4, 2016
- *      Author: Francisco
+ *      Author: Francisco Dominguez
  */
 
 #ifndef GRID_OCTREE_H_
