@@ -117,7 +117,7 @@ public:
 		nodeRoot->value=value;
 	}
 	vector<GridOctreeNode<T>*> getPath(int i,int j,int k){
-		//Make suere voxel i,j,k exist before call this method
+		//Make sure voxel i,j,k exist before call this method
 		int nPos;
 		GridOctreeNode<T> *nodeRoot=this->nodeRoot;
 		vector<GridOctreeNode<T>*> nodes;
@@ -154,6 +154,9 @@ public:
 		}
 		return nodeRoot->value;
 	}
+	inline T *getVoxelPtr(Idx idx){
+		return getVoxelPtr(idx.i,idx.j,idx.k);
+	}
 	inline T *getVoxelPtr(float x,float y,float z){
 		int i,j,k;
 		i=getXIdx(x);
@@ -174,14 +177,14 @@ public:
 		k=getZIdx(z);
 		return getVoxel(i,j,k);
 	}
-	inline void setVoxel(int i,int j,int k,T v){
+	inline void setVoxel(int i,int j,int k,T &v){
 		if(isOut(i,j,k)) return;
 		T *p=new T(v);//T need a copy constructor
 		insertNode(i,j,k,p);
 		Idx idx=getIdx(i,j,k);
 		voxelsIdx.push_back(idx);
 	}
-	inline void setVoxel(float x,float y,float z,T v){
+	inline void setVoxel(float x,float y,float z,T &v){
 		int i,j,k;
 		i=getXIdx(x);
 		j=getYIdx(y);
@@ -221,7 +224,7 @@ public:
 		k=getZIdx(z);
 	}
 	//return the cx,cy,cz of the voxel where x,y,z fall in
-	inline void XYZ2center(float x,float y,float z,float &cx,float &cy,float &cz){
+	inline void XYZ2center(float &x,float &y,float &z,float &cx,float &cy,float &cz){
 		int i,j,k;
 		XYZ2ijk(x,y,z,i,j,k);
 		ijk2XYZ(i,j,k,cx,cy,cz);
@@ -234,6 +237,12 @@ public:
 		i=idx.i;
 		j=idx.j;
 		k=idx.k;
+	}
+	inline void getXYZfromIdx(Idx idx,float &x,float &y,float &z){
+		int &i=idx.i;
+		int &j=idx.j;
+		int &k=idx.k;
+		ijk2XYZ(i,j,k,x,y,z);
 	}
 	inline float i2X(int i){
 		float j=(float)i/(sizeX-1);
