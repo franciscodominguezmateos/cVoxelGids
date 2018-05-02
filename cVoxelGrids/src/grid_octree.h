@@ -177,14 +177,14 @@ public:
 		k=getZIdx(z);
 		return getVoxel(i,j,k);
 	}
-	inline void setVoxel(int i,int j,int k,T &v){
+	inline void setVoxel(int i,int j,int k,T v){
 		if(isOut(i,j,k)) return;
 		T *p=new T(v);//T need a copy constructor
 		insertNode(i,j,k,p);
 		Idx idx=getIdx(i,j,k);
 		voxelsIdx.push_back(idx);
 	}
-	inline void setVoxel(float x,float y,float z,T &v){
+	inline void setVoxel(float x,float y,float z,T v){
 		int i,j,k;
 		i=getXIdx(x);
 		j=getYIdx(y);
