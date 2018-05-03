@@ -179,10 +179,13 @@ public:
 	}
 	inline void setVoxel(int i,int j,int k,T v){
 		if(isOut(i,j,k)) return;
+		//if doesn't exit node
+		if(getVoxelPtr(i,j,k)==NULL){
+			Idx idx=getIdx(i,j,k);
+			voxelsIdx.push_back(idx);
+		}
 		T *p=new T(v);//T need a copy constructor
 		insertNode(i,j,k,p);
-		Idx idx=getIdx(i,j,k);
-		voxelsIdx.push_back(idx);
 	}
 	inline void setVoxel(float x,float y,float z,T v){
 		int i,j,k;
